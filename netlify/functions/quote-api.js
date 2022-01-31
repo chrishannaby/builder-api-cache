@@ -1,39 +1,25 @@
 const { builder } = require("@netlify/functions");
+const fetch = require("node-fetch");
 
 const pathPrefix = /^\/\.netlify\/functions\/quote-api\//;
-
-function arrayToURLSearchParams(paramsArray) {
-  const paramsObj = paramsArray.reduce(
-    (result, currentValue, index, initialArray) => {
-      if (index % 2 === 0) {
-        result[initialArray[index]] = initialArray[index + 1];
-      }
-      return result;
-    },
-    {}
-  );
-  return new URLSearchParams(paramsObj);
-}
+const { API_PATH } = process.env;
 
 function transformPathToQuery(rawUrl) {
   const rawPath = new URL(rawUrl).pathname;
-  const params = rawPath
+  const rawParams = rawPath
     .replace(pathPrefix, "") // remove the function path prefix
-    .replace(/\/$/, "") // remove trailing slash if present
-    .split("/");
-  if (params.length % 2 !== 0) {
-    throw new Error(
-      `Params passed must be in pairs. Recevied: ${params.join(",")}`
-    );
-  }
-  return arrayToURLSearchParams(params);
+    .replace(/\/$/, ""); // remove trailing slash if present
+  return Buffer.from(rawParams, "base64").toString(); // decode the base64 encoded search params to ASCII
 }
 
 async function handler(event) {
   try {
     const params = transformPathToQuery(event.rawUrl);
+    const apiUrl = API_PATH + params;
+    const apiResponse = await fetch(apiUrl);
+    const apiResponseBody = await apiResponse.text();
     return {
-      body: params.toString(),
+      body: apiResponseBody,
       statusCode: 200,
       ttl: 60,
     };
