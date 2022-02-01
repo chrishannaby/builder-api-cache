@@ -9,6 +9,7 @@ function transformPathToQuery(rawUrl) {
   const rawParams = rawPath
     .replace(pathPrefix, "") // remove the function path prefix
     .replace(/\/$/, ""); // remove trailing slash if present
+  console.log(rawParams);
   return Buffer.from(rawParams, "base64").toString(); // decode the base64 encoded search params to ASCII
 }
 
