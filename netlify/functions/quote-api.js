@@ -19,7 +19,6 @@ async function handler(event) {
     const apiUrl = API_PATH + params;
     console.log(apiUrl);
     const apiResponse = await fetch(apiUrl);
-    console.log(apiResponse);
     const apiResponseBody = await apiResponse.text();
     return {
       body: apiResponseBody,
