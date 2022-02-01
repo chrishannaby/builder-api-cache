@@ -13,6 +13,7 @@ function transformPathToQuery(rawUrl) {
 }
 
 async function handler(event) {
+  console.log(event.rawUrl);
   try {
     const params = transformPathToQuery(event.rawUrl);
     const apiUrl = API_PATH + params;
