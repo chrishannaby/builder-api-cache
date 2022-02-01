@@ -25,6 +25,9 @@ async function handler(event) {
       body: apiResponseBody,
       statusCode: 200,
       ttl: 60,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     };
   } catch (error) {
     return {
