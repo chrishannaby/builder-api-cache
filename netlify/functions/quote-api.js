@@ -5,7 +5,7 @@ const pathPrefix = /^.+\/quote-api\/?/;
 const { API_PATH } = process.env;
 
 function transformPathToQuery(rawUrl) {
-  const rawParams = rawPath
+  const rawParams = rawUrl
     .replace(pathPrefix, "") // remove the function path prefix
     .replace(/\/$/, ""); // remove trailing slash if present
   console.log(rawParams);
