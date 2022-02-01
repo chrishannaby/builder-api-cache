@@ -1,7 +1,7 @@
 const { builder } = require("@netlify/functions");
 const fetch = require("node-fetch");
 
-const pathPrefix = /^\/\.netlify\/(builders|functions)\/quote-api\//;
+const pathPrefix = /^.+\/quote-api\/?/;
 const { API_PATH } = process.env;
 
 function transformPathToQuery(rawUrl) {
