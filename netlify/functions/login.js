@@ -4,7 +4,7 @@ exports.handler = async function () {
     headers: {
       Location: "https://www2-stage.aapc.com/account",
       "Set-Cookie":
-        "netlify=hello; domain=moneytronicswag.com; path=/; HttpOnly; Secure;",
+        "netlify=hello; domain=staging.moneytronicswag.com; path=/; HttpOnly; Secure;",
     },
   };
 };
